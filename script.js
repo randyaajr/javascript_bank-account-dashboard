@@ -129,28 +129,26 @@ const displayTransactions = function (transactions) {
     containerTransactions.insertAdjacentHTML('afterbegin', html);
   });
 };
-displayTransactions(account1.transactions);
 
 const calcDisplayBalance = transactions => {
   const balance = transactions.reduce((acc, trans) => acc + trans, 0);
   labelBalance.textContent = `$${balance}`;
 };
-calcDisplayBalance(account1.transactions);
 
-const calcDisplaySummary = transactions => {
-  const cashNow = transactions
+const calcDisplaySummary = acc => {
+  const cashNow = acc.transactions
     .filter(tran => tran > 0)
     .reduce((acc, tran) => acc + tran, 0);
   labelSumIn.textContent = `$${cashNow}`;
 
-  const cashOut = transactions
+  const cashOut = acc.transactions
     .filter(tran => tran < 0)
     .reduce((acc, tran) => acc + tran, 0);
   labelSumOut.textContent = `$${Math.abs(cashOut)}`;
 
-  const interest = transactions
+  const interest = acc.transactions
     .filter(tran => tran > 0)
-    .map(deposit => (deposit * 1.2) / 100)
+    .map(deposit => (deposit * acc.interestRate) / 100)
     .filter((int, i, arr) => {
       //console.log(arr);
       return int >= 1;
@@ -158,7 +156,6 @@ const calcDisplaySummary = transactions => {
     .reduce((acc, int) => acc + int, 0);
   labelSumInterest.textContent = `$${interest}`;
 };
-calcDisplaySummary(account1.transactions);
 
 const createUsernames = accs => {
   accs.forEach(acc => {
@@ -170,3 +167,35 @@ const createUsernames = accs => {
   });
 };
 createUsernames(accounts);
+
+// Event handlers
+
+let currentAccount;
+
+btnLogin.addEventListener('click', e => {
+  // This prevents the form from submitting
+  e.preventDefault();
+
+  currentAccount = accounts.find(
+    acc => acc.userName === inputLoginUsername.value
+  );
+  console.log(currentAccount);
+
+  if (currentAccount?.pin === Number(inputLoginPin.value)) {
+    // This displays UI and message
+    labelWelcome.textContent = `Welcome back, ${
+      currentAccount.owner.split(' ')[0]
+    }`;
+    containerApp.style.opacity = 100;
+
+    // This clears the input fields
+    inputLoginUsername.value = inputLoginPin.value = '';
+    inputLoginPin.blur();
+    // This displays transactions history
+    displayTransactions(currentAccount.transactions);
+    // This displays the account balance
+    calcDisplayBalance(currentAccount.transactions);
+    // This displays the account summary
+    calcDisplaySummary(currentAccount);
+  }
+});
