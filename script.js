@@ -50,7 +50,36 @@ const account7 = {
   pin: 6804,
 };
 
-const accounts = [account1, account2, account3, account4, account5];
+const account8 = {
+    owner: 'Micheal Skies',
+    transactions: [346, 75, 2642, 6783, -1065, 165, 1977, -1440],
+    interestRate: 1.21,
+    pin: 3648,
+};
+
+const account9 = {
+    owner: 'Cam Hammel',
+    transactions: [3648, -708, 2468, -2250, -16],
+    interestRate: 1.21,
+    pin: 58,
+};
+
+const account10 = {
+    owner: 'Micheal Skies',
+    transactions: [346, 75, 2642, 6783, -1065, 165, 1977, -1440],
+    interestRate: 1.21,
+    pin: 3648,
+};
+
+const accounts = [
+  account1,
+  account2,
+  account3,
+  account4,
+  account5,
+  account6,
+  account7,
+];
 
 // App Elements
 const labelWelcome = document.querySelector('.welcome');
