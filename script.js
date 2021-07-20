@@ -51,24 +51,26 @@ const account7 = {
 };
 
 const account8 = {
-    owner: 'Micheal Skies',
-    transactions: [346, 75, 2642, 6783, -1065, 165, 1977, -1440],
-    interestRate: 1.21,
-    pin: 3648,
+  owner: 'Micheal Skies',
+  transactions: [346, 75, 2642, 6783, -1065, 165, 1977, -1440],
+  interestRate: 2.88,
+  pin: 3648,
 };
 
 const account9 = {
-    owner: 'Cam Hammel',
-    transactions: [3648, -708, 2468, -2250, -16],
-    interestRate: 1.21,
-    pin: 58,
+  owner: 'Cam Hammel',
+  transactions: [3648, -708, 2468, -2250, -16],
+  interestRate: 0.8,
+  pin: 5833,
 };
 
 const account10 = {
-    owner: 'Micheal Skies',
-    transactions: [346, 75, 2642, 6783, -1065, 165, 1977, -1440],
-    interestRate: 1.21,
-    pin: 3648,
+  owner: 'Kim Loa',
+  transactions: [
+    345, -175, 346, 86, -45, 47, -998, -63, 1366, 346, -34, 425, 477, -1350,
+  ],
+  interestRate: 1.8,
+  pin: 5890,
 };
 
 const accounts = [
@@ -79,6 +81,9 @@ const accounts = [
   account5,
   account6,
   account7,
+  account8,
+  account9,
+  account10,
 ];
 
 // App Elements
@@ -91,7 +96,7 @@ const labelSumInterest = document.querySelector('.summary__value--interest');
 const labelTimer = document.querySelector('.timer');
 
 const containerApp = document.querySelector('.app');
-const containerTransactions = document.querySelector('.transaction');
+const containerTransactions = document.querySelector('.transactions');
 
 const btnLogin = document.querySelector('.login__btn');
 const btnTransfer = document.querySelector('.form__btn--transfer');
@@ -106,3 +111,39 @@ const inputTransferAmount = document.querySelector('.form__input--amount');
 const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
+
+const displayTransactions = function (transactions) {
+  containerTransactions.innerHTML = '';
+
+  transactions.forEach(function (trans, i) {
+    const type = trans > 0 ? 'Deposit' : 'withdrawal';
+
+    const html = `
+        <div class="transactions__row">
+            <div class="transactions__type transactions__type--${type}">${
+      i + 1
+    }${type}</div>
+            <div class="transactions__date">3 days ago</div>
+            <div class="transactions__value">${trans}</div>
+        </div>`;
+    containerTransactions.insertAdjacentHTML('afterbegin', html);
+  });
+};
+displayTransactions(account1.transactions);
+
+const calcDisplayBalance = transactions => {
+  const balance = transactions.reduce((acc, trans) => acc + trans, 0);
+  labelBalance.textContent = `$${balance}`;
+};
+calcDisplayBalance(account1.transactions);
+
+const createUsernames = accs => {
+  accs.forEach(acc => {
+    acc.userName = acc.owner
+      .toLowerCase()
+      .split(' ')
+      .map(name => name[0])
+      .join('');
+  });
+};
+createUsernames(accounts);
