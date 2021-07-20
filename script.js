@@ -137,6 +137,29 @@ const calcDisplayBalance = transactions => {
 };
 calcDisplayBalance(account1.transactions);
 
+const calcDisplaySummary = transactions => {
+  const cashNow = transactions
+    .filter(tran => tran > 0)
+    .reduce((acc, tran) => acc + tran, 0);
+  labelSumIn.textContent = `$${cashNow}`;
+
+  const cashOut = transactions
+    .filter(tran => tran < 0)
+    .reduce((acc, tran) => acc + tran, 0);
+  labelSumOut.textContent = `$${Math.abs(cashOut)}`;
+
+  const interest = transactions
+    .filter(tran => tran > 0)
+    .map(deposit => (deposit * 1.2) / 100)
+    .filter((int, i, arr) => {
+      //console.log(arr);
+      return int >= 1;
+    })
+    .reduce((acc, int) => acc + int, 0);
+  labelSumInterest.textContent = `$${interest}`;
+};
+calcDisplaySummary(account1.transactions);
+
 const createUsernames = accs => {
   accs.forEach(acc => {
     acc.userName = acc.owner
