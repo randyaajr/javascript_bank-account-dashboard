@@ -2,34 +2,55 @@
 
 // Mock User Data
 const account1 = {
-  owner: 'Jonas Schmedtmann',
-  movements: [200, 450, -400, 3000, -650, -130, 70, 1300],
+  owner: 'Randy Anderson',
+  transactions: [200, 450, -400, 3000, -650, -130, 70, 1300],
   interestRate: 1.2, // %
   pin: 1111,
 };
 
 const account2 = {
   owner: 'Jessica Davis',
-  movements: [5000, 3400, -150, -790, -3210, -1000, 8500, -30],
+  transactions: [5000, 3400, -150, -790, -3210, -1000, 8500, -30],
   interestRate: 1.5,
   pin: 2222,
 };
 
 const account3 = {
   owner: 'Steven Thomas Williams',
-  movements: [200, -200, 340, -300, -20, 50, 400, -460],
+  transactions: [200, -200, 340, -300, -20, 50, 400, -460],
   interestRate: 0.7,
   pin: 3333,
 };
 
 const account4 = {
   owner: 'Sarah Smith',
-  movements: [430, 1000, 700, 50, 90],
+  transactions: [430, 1000, 700, 50, 90],
   interestRate: 1,
-  pin: 4444,
+  pin: 3442,
 };
 
-const accounts = [account1, account2, account3, account4];
+const account5 = {
+  owner: 'John Snow',
+  transactions: [560, 1635, 250, 10, 33],
+  interestRate: 1.26,
+  pin: 8943,
+};
+
+const account6 = {
+  owner: 'Kyle Brown',
+  transactions: [977, 400, 15, 85, 35, -455, -695, -32],
+  interestRate: 0.9,
+  pin: 2457,
+};
+
+const account7 = {
+  owner: 'Nick Jonas',
+  transactions: [700, 10, 650, 1, 25, -165, 977, -440],
+  interestRate: 1.13,
+  pin: 6804,
+};
+
+const accounts = [account1, account2, account3, account4, account5];
 
 // App Elements
 const labelWelcome = document.querySelector('.welcome');
@@ -41,7 +62,7 @@ const labelSumInterest = document.querySelector('.summary__value--interest');
 const labelTimer = document.querySelector('.timer');
 
 const containerApp = document.querySelector('.app');
-const containerMovements = document.querySelector('.movements');
+const containerTransactions = document.querySelector('.transaction');
 
 const btnLogin = document.querySelector('.login__btn');
 const btnTransfer = document.querySelector('.form__btn--transfer');
