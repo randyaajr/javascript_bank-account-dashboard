@@ -116,23 +116,23 @@ const displayTransactions = function (transactions) {
   containerTransactions.innerHTML = '';
 
   transactions.forEach(function (trans, i) {
-    const type = trans > 0 ? 'Deposit' : 'withdrawal';
+    const type = trans > 0 ? 'deposit' : 'withdrawal';
 
     const html = `
         <div class="transactions__row">
             <div class="transactions__type transactions__type--${type}">${
       i + 1
-    }${type}</div>
-            <div class="transactions__date">3 days ago</div>
+    } ${type}</div>
+            <div class="transactions__date"></div>
             <div class="transactions__value">${trans}</div>
         </div>`;
     containerTransactions.insertAdjacentHTML('afterbegin', html);
   });
 };
 
-const calcDisplayBalance = transactions => {
-  const balance = transactions.reduce((acc, trans) => acc + trans, 0);
-  labelBalance.textContent = `$${balance}`;
+const calcDisplayBalance = acc => {
+  acc.balance = acc.transactions.reduce((acc, trans) => acc + trans, 0);
+  labelBalance.textContent = `$${acc.balance}`;
 };
 
 const calcDisplaySummary = acc => {
@@ -168,8 +168,16 @@ const createUsernames = accs => {
 };
 createUsernames(accounts);
 
-// Event handlers
+const updateUi = acc => {
+  // This displays transactions history
+  displayTransactions(acc.transactions);
+  // This displays the account balance
+  calcDisplayBalance(acc);
+  // This displays the account summary
+  calcDisplaySummary(acc);
+};
 
+// Event handlers
 let currentAccount;
 
 btnLogin.addEventListener('click', e => {
@@ -191,11 +199,31 @@ btnLogin.addEventListener('click', e => {
     // This clears the input fields
     inputLoginUsername.value = inputLoginPin.value = '';
     inputLoginPin.blur();
-    // This displays transactions history
-    displayTransactions(currentAccount.transactions);
-    // This displays the account balance
-    calcDisplayBalance(currentAccount.transactions);
-    // This displays the account summary
-    calcDisplaySummary(currentAccount);
+
+    // This updates the UI
+    updateUi(currentAccount);
+  }
+});
+
+btnTransfer.addEventListener('click', e => {
+  e.preventDefault();
+  const amount = Number(inputTransferAmount.value);
+  const receiverAccount = accounts.find(
+    acc => acc.userName === inputTransferTo.value
+  );
+  inputLoanAmount.value = inputTransferTo.value = '';
+
+  if (
+    amount > 0 &&
+    receiverAccount &&
+    currentAccount.balance >= amount &&
+    receiverAccount?.userName !== currentAccount.userName
+  ) {
+    // Transfer
+    currentAccount.transactions.push(-amount);
+    receiverAccount.transactions.push(amount);
+
+    // This updates the UI
+    updateUi(currentAccount);
   }
 });
