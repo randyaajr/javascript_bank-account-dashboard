@@ -7,10 +7,10 @@
 | Randy Anderson         | ra    | 1111 |
 | Jessica Davis          | jd    | 2222 |
 | Steven Thomas Williams | stw   | 3333 |
-| Sarah Smith            | ss    | 3442 |
-| John Snow              | js    | 8943 |
-| Kyle Brown             | kb    | 2457 |
-| Nick Jonas             | nj    | 6804 |
-| Micheal Skies          | ms    | 3648 |
-| Cam Hammel             | ch    | 5833 |
-| Kim Loa                | kl    | 5890 |
+| Sarah Smith            | ss    | 4444 |
+| John Snow              | js    | 5555 |
+| Kyle Brown             | kb    | 6666 |
+| Nick Jonas             | nj    | 7777 |
+| Micheal Skies          | ms    | 8888 |
+| Cam Hammel             | ch    | 9999 |
+| Kim Loa                | kl    | 4321 |
